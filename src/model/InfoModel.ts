@@ -1,12 +1,12 @@
-export interface IInfoModel {
+export interface IBlogInfoModel {
   title: string;
   description: string;
 }
 
-export class InfoModel implements IInfoModel {
+export class BlogInfoModel implements IBlogInfoModel {
   title: string;
   description: string;
-  constructor(data: IInfoModel) {
+  constructor(data: IBlogInfoModel) {
     const {
       title,
       description,
@@ -15,12 +15,12 @@ export class InfoModel implements IInfoModel {
     this.description = description;
   }
 
-  static createModel(data: IInfoModel): InfoModel {
-    return new InfoModel(data);
+  static createModel(data: IBlogInfoModel): BlogInfoModel {
+    return new BlogInfoModel(data);
   }
 
-  static errorModel(): InfoModel {
-    return new InfoModel({
+  static errorModel(): BlogInfoModel {
+    return new BlogInfoModel({
       title: "タイトルの取得に失敗しました。",
       description: "説明の取得に失敗しました。",
     });

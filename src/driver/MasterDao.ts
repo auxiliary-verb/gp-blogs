@@ -1,20 +1,37 @@
 import { IMaster } from "../inerface/IMaster";
-import { InfoModel } from "../model/InfoModel";
+import { AuthorModel, IAuthorModel } from "../model/AuthorModel";
+import { BlogInfoModel, IBlogInfoModel } from "../model/InfoModel";
 import { dbUrl } from "./constant";
+
+export interface IMasterModel {
+  blog: IBlogInfoModel;
+  author: IAuthorModel;
+}
 
 export class MasterDao implements IMaster {
   url: string;
   constructor() {
     this.url = dbUrl;
   }
-  async getInfo(): Promise<InfoModel> {
+  async getBlogInfo(): Promise<BlogInfoModel> {
     const apiUrl = `${this.url}/info.json`;
     return fetch(apiUrl).then(async (res) => {
-      const result = await res.json();
-      return InfoModel.createModel(result);
+      const result:IMasterModel = await res.json();
+      return BlogInfoModel.createModel(result.blog);
     }).catch((err) => {
       console.error(err);
-      return InfoModel.errorModel();
+      return BlogInfoModel.errorModel();
+    });
+  }
+
+  async getAuthor(): Promise<AuthorModel> {
+    const apiUrl = `${this.url}/author.json`;
+    return fetch(apiUrl).then(async (res) => {
+      const result:IMasterModel = await res.json();
+      return AuthorModel.createModel(result.author);
+    }).catch((err) => {
+      console.error(err);
+      return AuthorModel.errorModel();
     });
   }
 }

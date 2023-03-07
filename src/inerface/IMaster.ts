@@ -1,4 +1,6 @@
-import { InfoModel } from "../model/InfoModel";
+import { AuthorModel } from "../model/AuthorModel";
+import { BlogInfoModel } from "../model/InfoModel";
 export interface IMaster {
-  getInfo(): Promise<InfoModel>;
+  getBlogInfo(): Promise<BlogInfoModel>;
+  getAuthor(): Promise<AuthorModel>;
 }
