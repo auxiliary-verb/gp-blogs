@@ -5,12 +5,16 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box, CardActionArea, Chip, Container, Divider, Grid, Stack } from '@mui/material';
 import { useContent } from '../controller/useContent';
+import type {} from '@mui/material/themeCssVarsAugmentation';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 interface IArticleCardProps {
   title: string;
   thumbnail: string;
   createdDate: string;
   tags: string[];
+  name: string;
 }
 
 export default function ArticleCard(props: IArticleCardProps) {
@@ -19,32 +23,35 @@ export default function ArticleCard(props: IArticleCardProps) {
     thumbnail,
     createdDate,
     tags,
+    name,
   } = props;
+  const router = useRouter();
   const content = useContent(thumbnail);
   const date = new Date(createdDate);
-  const dateStr = `${date.getFullYear()}.${date.getMonth().toString().padStart(2, '0')}.${date.getDate().toString().padStart(2, '0')}`
+  const dateStr = `${date.getFullYear()}.${date.getMonth().toString().padStart(2, '0')}.${date.getDate().toString().padStart(2, '0')}`;
+  const href = {
+    pathname: '/articles/[name]',
+    query: { name: name },
+  };
 
   return (
     <Card>
-      <CardActionArea>
-      <Container fixed>
+      <CardActionArea component={Link} href={href}>
         <CardMedia
           component="img"
-          sx={{ maxHeight: 120 }}
           image={content}
           alt={thumbnail}
         />
-        </Container>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography variant="h5">
             {title}
           </Typography>
           {
             tags.map((val, idx) => (
-              <Chip label={val} key={`title-tag-${idx}`} />
+              <Chip label={val} key={`title-tag-${idx}`} color="primary"/>
             ))
           }
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2">
             {dateStr}
           </Typography>
         </CardContent>

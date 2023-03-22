@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next build && next export && npx serve out",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "npx serve out",
     "lint": "next lint",
-    "export": "next build && next export"
+    "export": "next export"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
