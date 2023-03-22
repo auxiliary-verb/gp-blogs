@@ -23,7 +23,7 @@ export default function Article() {
   return (
     <Container>
       <ReactMarkdown>
-        {content.data?.body}
+        {content.data?.body || ""}
       </ReactMarkdown>
     </Container>
   );
