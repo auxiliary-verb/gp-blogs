@@ -26,6 +26,7 @@ concurrency:
 jobs:
   # Build job
   build:
+    environment: prd
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
