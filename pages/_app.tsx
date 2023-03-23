@@ -14,6 +14,7 @@ import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { useRouter } from 'next/router';
 
 const clientSideEmotionCache = createEmotionCache();
 interface MyAppProps extends AppProps {
@@ -26,6 +27,7 @@ export default function App(props: MyAppProps) {
   const [pageLoading, setPageLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorOpen, setErrorOpen] = useState(false);
+  const router = useRouter();
 
   const alertError = (msg: string) => {
     console.error(msg);
@@ -68,7 +70,13 @@ export default function App(props: MyAppProps) {
           </Alert>
         </Collapse>
         <NaviBar title={bloginfo?.title || ""} />
-        <Component {...pageProps} setPageLoading={setPageLoading} setError={alertError}/>
+        {
+          router.isReady?(
+            <Component {...pageProps} setPageLoading={setPageLoading} setError={alertError}/>
+          ):(
+            <></>
+          )
+        }
       </ThemeProvider>
     </CacheProvider>
   );
