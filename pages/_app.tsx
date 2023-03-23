@@ -9,7 +9,7 @@ import NaviBar from '@/src/compornent/NaviBar';
 import { useBlogInfo } from '@/src/controller/useBlogInfo';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -28,6 +28,7 @@ export default function App(props: MyAppProps) {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorOpen, setErrorOpen] = useState(false);
   const router = useRouter();
+  const [isReady, setIsReady] = useState(router.isReady)
 
   const alertError = (msg: string) => {
     console.error(msg);
@@ -35,7 +36,11 @@ export default function App(props: MyAppProps) {
     setErrorOpen(msg !== "");
   };
 
-  const isLoading = (bloginfo === undefined || pageLoading);
+  useEffect(()=>{
+    setIsReady(router.isReady);
+  },[router])
+
+  const isLoading = (bloginfo === undefined || !isReady || pageLoading);
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -71,7 +76,7 @@ export default function App(props: MyAppProps) {
         </Collapse>
         <NaviBar title={bloginfo?.title || ""} />
         {
-          router.isReady?(
+          isReady?(
             <Component {...pageProps} setPageLoading={setPageLoading} setError={alertError}/>
           ):(
             <></>
