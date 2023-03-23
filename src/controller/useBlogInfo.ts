@@ -10,6 +10,6 @@ export function useBlogInfo() {
         setBlogInfo(val);
       });
     }
-  })
+  },[blogInfo])
   return blogInfo;
 }

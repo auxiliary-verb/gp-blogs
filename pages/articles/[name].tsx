@@ -9,21 +9,34 @@ import ProTip from '../../src/compornent/ProTip';
 import Copyright from '../../src/compornent/Copyright';
 import ReactMarkdown from 'react-markdown';
 import { useArticle } from '@/src/controller/useArticle';
+import WebInfo from '@/src/compornent/WebInfo';
+import { useContent } from '@/src/controller/useContent';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import { IPageProps } from '@/src/common/IPageProps';
 
-export default function Article() {
+export default function Article(props: IPageProps) {
+  const {setPageLoading, setError} = props;
   const router = useRouter();
   const { name } = router.query;
-  const articleName = (typeof name === 'string')? name : "";
-  const content = useArticle(articleName);
+  const articleName = (typeof name === 'string') ? name : "";
+  const article = useArticle(articleName);
+  const content = useContent(article.data?.thumbnail || "");
+  React.useEffect(()=>{
+    setPageLoading(article.isLoading)
+  },[setPageLoading, article.isLoading])
+
   React.useEffect(() => {
-    if(articleName === ""){
+    if (articleName === "") {
+      console.log(router.query);
       router.push('/404');
     }
   }, [articleName, router])
   return (
     <Container>
+      <WebInfo subtitle={article.data?.title} description={article.data?.description} thumbnail={content}/>
       <ReactMarkdown>
-        {content.data?.body || ""}
+        {article.data?.body || ""}
       </ReactMarkdown>
     </Container>
   );
