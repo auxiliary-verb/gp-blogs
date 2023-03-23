@@ -20,24 +20,25 @@ export default function Article(props: IPageProps) {
   const router = useRouter();
   const { name } = router.query;
   const articleName = (typeof name === 'string') ? name : "";
-  const article = useArticle(articleName);
-  const content = useContent(article.data?.thumbnail || "");
+  const {data, error, isLoading} = useArticle(articleName);
+  const content = useContent(data?.thumbnail || "");
   React.useEffect(()=>{
-    setPageLoading(article.isLoading)
-  },[setPageLoading, article.isLoading])
+    setPageLoading(isLoading)
+  },[setPageLoading, isLoading])
 
   console.log(name);
   React.useEffect(() => {
-    if (articleName === "") {
+    if (!isLoading && error) {
+      setError(error);
       router.push('/404');
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [articleName])
+  }, [isLoading, error])
   return (
     <Container>
-      <WebInfo subtitle={article.data?.title} description={article.data?.description} thumbnail={content}/>
+      <WebInfo subtitle={data?.title} description={data?.description} thumbnail={content}/>
       <ReactMarkdown>
-        {article.data?.body || ""}
+        {data?.body || ""}
       </ReactMarkdown>
     </Container>
   );
