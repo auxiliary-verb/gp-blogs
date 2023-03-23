@@ -20,15 +20,24 @@ export default function Article(props: IPageProps) {
   const router = useRouter();
   const { name } = router.query;
   const articleName = (typeof name === 'string') ? name : "";
-  const {data, error, isLoading} = useArticle(articleName);
+  const {data, error, isLoading, setName} = useArticle(articleName);
   const content = useContent(data?.thumbnail || "");
-  React.useEffect(()=>{
-    setPageLoading(isLoading)
-  },[setPageLoading, isLoading])
+  const [isReady, setIsReady] = React.useState(router.isReady)
 
-  console.log(name);
+  React.useEffect(()=>{
+    if(isReady !== router.isReady){
+      setIsReady(router.isReady);
+    }
+    setPageLoading(isLoading || !isReady)
+  },[setPageLoading, isLoading, isReady, router])
+
+  React.useEffect(()=>{
+    setName(articleName);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[articleName])
+
   React.useEffect(() => {
-    if (!isLoading && error) {
+    if (!isLoading && error !== "") {
       setError(error);
       router.push('/404');
     }

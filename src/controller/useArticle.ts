@@ -5,20 +5,23 @@ import { article } from "../service/generateService";
 export function useArticle(name: string) {
   const [data, setData] = useState<ArticleModel | undefined>(undefined);
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [artName, setName] = useState(name);
   useEffect(() => {
-    if (name !== undefined && name !== "") {
-      article.getByName(name).then((val) => {
+    if (artName !== undefined && artName !== "") {
+      setIsLoading(true);
+      article.getByName(artName).then((val) => {
         setData(val);
       }).catch((error) => setError(error.toString()))
         .finally(() => {
           setIsLoading(false);
         });
     }
-  }, [name]);
+  }, [artName]);
   return {
     data,
     error,
     isLoading,
+    setName,
   };
 }

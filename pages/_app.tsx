@@ -27,8 +27,6 @@ export default function App(props: MyAppProps) {
   const [pageLoading, setPageLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorOpen, setErrorOpen] = useState(false);
-  const router = useRouter();
-  const [isReady, setIsReady] = useState(router.isReady)
 
   const alertError = (msg: string) => {
     console.error(msg);
@@ -36,11 +34,7 @@ export default function App(props: MyAppProps) {
     setErrorOpen(msg !== "");
   };
 
-  useEffect(()=>{
-    setIsReady(router.isReady);
-  },[router])
-
-  const isLoading = (bloginfo === undefined || !isReady || pageLoading);
+  const isLoading = (bloginfo === undefined || pageLoading);
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -75,13 +69,7 @@ export default function App(props: MyAppProps) {
           </Alert>
         </Collapse>
         <NaviBar title={bloginfo?.title || ""} />
-        {
-          isReady?(
-            <Component {...pageProps} setPageLoading={setPageLoading} setError={alertError}/>
-          ):(
-            <></>
-          )
-        }
+        <Component {...pageProps} setPageLoading={setPageLoading} setError={alertError}/>
       </ThemeProvider>
     </CacheProvider>
   );
