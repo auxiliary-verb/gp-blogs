@@ -29,6 +29,11 @@ jobs:
     environment: prd
     runs-on: ubuntu-latest
     steps:
+      - name: set Env
+        run: |
+          echo "NEXT_PUBLIC_DATABASE_REPOSITORY=${{ vars.NEXT_PUBLIC_DATABASE_REPOSITORY }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_DICTIONARY_REPOSITORY=${{ vars.NEXT_PUBLIC_DICTIONARY_REPOSITORY }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_GITHUB_ID=${{ vars.NEXT_PUBLIC_GITHUB_ID }}" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v3
       - name: Detect package manager
