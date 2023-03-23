@@ -26,12 +26,13 @@ export default function Article(props: IPageProps) {
     setPageLoading(article.isLoading)
   },[setPageLoading, article.isLoading])
 
+  console.log(name);
   React.useEffect(() => {
     if (articleName === "") {
-      console.log(router.query);
       router.push('/404');
     }
-  }, [articleName, router])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [articleName])
   return (
     <Container>
       <WebInfo subtitle={article.data?.title} description={article.data?.description} thumbnail={content}/>
