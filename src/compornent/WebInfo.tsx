@@ -11,7 +11,7 @@ interface IWebInfoProps {
 
 export default function WebInfo(props: IWebInfoProps) {
   const bloginfo = useBlogInfo();
-  const blogTitle = bloginfo?.title || "タイトルが取得できませんでした";
+  const blogTitle = bloginfo?.title || "";
   const title = props.subtitle ? `${props.subtitle} - ${blogTitle}` : blogTitle;
   const type = props.subtitle ? 'article' : 'blog';
   const description = props.description || bloginfo?.description || "" ;

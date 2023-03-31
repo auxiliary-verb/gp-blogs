@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box, CardActionArea, Chip, Container, Divider, Grid, Stack } from '@mui/material';
 import { useContent } from '../controller/useContent';
-import type {} from '@mui/material/themeCssVarsAugmentation';
+import type { } from '@mui/material/themeCssVarsAugmentation';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -30,8 +30,8 @@ export default function ArticleCard(props: IArticleCardProps) {
   const date = new Date(createdDate);
   const dateStr = `${date.getFullYear()}.${date.getMonth().toString().padStart(2, '0')}.${date.getDate().toString().padStart(2, '0')}`;
   const href = {
-    pathname: '/articles/[name]',
-    query: { name: name },
+    pathname: '/articles',
+    hash: name,
   };
 
   return (
@@ -48,7 +48,19 @@ export default function ArticleCard(props: IArticleCardProps) {
           </Typography>
           {
             tags.map((val, idx) => (
-              <Chip label={val} key={`title-tag-${idx}`} color="primary"/>
+              <Chip
+                component={Link}
+                label={val}
+                key={`title-tag-${idx}`}
+                color="primary"
+                clickable
+                href={{
+                  pathname: '/tag',
+                  query: {
+                    filter: val,
+                  },
+                }}
+              />
             ))
           }
           <Typography variant="body2">

@@ -15,6 +15,8 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter } from 'next/router';
+import WebInfo from '@/src/compornent/WebInfo';
+import Container from '@mui/material/Container';
 
 const clientSideEmotionCache = createEmotionCache();
 interface MyAppProps extends AppProps {
@@ -35,6 +37,7 @@ export default function App(props: MyAppProps) {
   };
 
   const isLoading = (bloginfo === undefined || pageLoading);
+  const title = bloginfo?.title || "";
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -68,8 +71,11 @@ export default function App(props: MyAppProps) {
             {errorMessage}
           </Alert>
         </Collapse>
-        <NaviBar title={bloginfo?.title || ""} />
-        <Component {...pageProps} setPageLoading={setPageLoading} setError={alertError}/>
+        <WebInfo/>
+        <NaviBar title={title} />
+        <Container>
+          <Component {...pageProps} setPageLoading={setPageLoading} setError={alertError}/>
+        </Container>
       </ThemeProvider>
     </CacheProvider>
   );

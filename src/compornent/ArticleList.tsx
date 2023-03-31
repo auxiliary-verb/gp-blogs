@@ -4,12 +4,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Chip, Container, Grid, ImageList } from '@mui/material';
-import { useWordFilter } from '../controller/useArticleFileter';
+import { useWordFilter, IFilterResult } from '../controller/useArticleFileter';
 import ArticleCard from './ArticleCard';
 import { IPageProps } from '../common/IPageProps';
 
 interface IArticleListProps extends IPageProps {
   searchWords: string;
+  useFilter: (searchWords: string) => IFilterResult;
 }
 
 export default function ArticleList(props: IArticleListProps) {
@@ -17,8 +18,9 @@ export default function ArticleList(props: IArticleListProps) {
     searchWords,
     setPageLoading,
     setError,
+    useFilter,
   } = props;
-  const { data, error, isLoading } = useWordFilter(searchWords);
+  const { data, error, isLoading } = useFilter(searchWords);
   setPageLoading(isLoading);
   if (!isLoading && error) {
     setError(error.toString());

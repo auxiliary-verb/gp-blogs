@@ -3,18 +3,24 @@ import useSWR from "swr";
 import { IArticleInfoModel } from "../model/ArticleListModel";
 import { article } from "../service/generateService";
 
-export function useWordFilter(word:string){
+export interface IFilterResult{
+  data: IArticleInfoModel[];
+  error: string;
+  isLoading: boolean;
+};
+
+export function useWordFilter(searchWords:string): IFilterResult{
   const [data, setData] = useState<IArticleInfoModel[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   useEffect(()=>{
-    article.wordFilter(word).then((val)=>{
+    article.wordFilter(searchWords).then((val)=>{
       setData(val);
     }).catch((error) => setError(error.toString()))
     .finally(()=>{
       setIsLoading(false);
     });
-  },[word]);
+  },[searchWords]);
   return {
     data,
     error,
@@ -22,18 +28,18 @@ export function useWordFilter(word:string){
   };
 }
 
-export function useTagFilter(tags:string){
+export function useTagFilter(searchWords:string): IFilterResult{
   const [data, setData] = useState<IArticleInfoModel[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   useEffect(()=>{
-    article.tagFilter(tags).then((val)=>{
+    article.tagFilter(searchWords).then((val)=>{
       setData(val);
     }).catch((error) => setError(error.toString()))
     .finally(()=>{
       setIsLoading(false);
     });
-  },[tags]);
+  },[searchWords]);
   return {
     data,
     error,

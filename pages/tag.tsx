@@ -8,12 +8,12 @@ import Copyright from '../src/compornent/Copyright';
 import { IPageProps } from '@/src/common/IPageProps';
 import ArticleList from '@/src/compornent/ArticleList';
 import { useRouter } from 'next/router';
-import { useWordFilter } from '@/src/controller/useArticleFileter';
+import { useTagFilter } from '@/src/controller/useArticleFileter';
 
 export default function Home(props: IPageProps) {
   const router = useRouter();
   const { filter } = router.query;
   return (
-    <ArticleList {...props} searchWords={filter?.toString() || ""} useFilter={useWordFilter}/>
+    <ArticleList {...props} searchWords={filter?.toString() || ""} useFilter={useTagFilter}/>
   );
 }
