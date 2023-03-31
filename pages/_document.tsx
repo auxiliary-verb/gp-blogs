@@ -22,7 +22,7 @@ export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
       <Head>
         {/* PWA primary color */}
         <meta name="theme-color" content={theme.palette.primary.main} />
-        <link rel="shortcut icon" href="/feather%20pen%20icon%204.svg" />
+        <link rel="shortcut icon" href="%PUBLIC_URL%/feather%20pen%20icon%204.svg" />
         <meta name="emotion-insertion-point" content="" />
         {emotionStyleTags}
       </Head>
