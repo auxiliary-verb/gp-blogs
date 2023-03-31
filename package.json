@@ -29,5 +29,6 @@
   },
   "devDependencies": {
     "serve": "^14.2.0"
-  }
+  },
+  "homepage": "."
 }
