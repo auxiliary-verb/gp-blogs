@@ -52,7 +52,7 @@ export default function ArticleCard(props: IArticleCardProps) {
                 component={Link}
                 label={val}
                 key={`title-tag-${idx}`}
-                color="primary"
+                color="secondary"
                 clickable
                 href={{
                   pathname: '/tag',

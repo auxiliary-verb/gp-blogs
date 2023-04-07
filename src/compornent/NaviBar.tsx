@@ -11,14 +11,34 @@ import Container from '@mui/material/Container';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import FilledInput from '@mui/material/FilledInput';
 import Stack from '@mui/material/Stack';
+import { useRouter } from 'next/router';
 
 interface INaviBarProps {
   title: string;
 }
 
 export default function NaviBar(porps: INaviBarProps) {
+  const router = useRouter();
   const title = porps.title;
-  React.Component
+  const [words, setWords] = React.useState("");
+  const handleChenge = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setWords(event.target.value);
+  }
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.nativeEvent.isComposing || event.key !== 'Enter') {
+      return;
+    }
+    handleClick();
+  }
+
+  const handleClick = () => {
+    router.push('/tag', {
+      pathname: '/tag',
+      query: {
+        filter: words,
+      },
+    });
+  }
 
   return (
     <React.Fragment>
@@ -40,6 +60,9 @@ export default function NaviBar(porps: INaviBarProps) {
                 color="primary"
                 size="small"
                 disableUnderline
+                value={words}
+                onChange={handleChenge}
+                onKeyDown={handleKeyDown}
                 inputProps={{
                   'aria-label': 'search',
                   style: {
@@ -47,7 +70,7 @@ export default function NaviBar(porps: INaviBarProps) {
                   }
                 }}
                 endAdornment={
-                  <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                  <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={(e) => { }}>
                     <SearchIcon style={{ color: 'white' }} />
                   </IconButton>
                 }
