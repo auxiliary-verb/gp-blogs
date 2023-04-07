@@ -73,7 +73,7 @@ export default function App(props: MyAppProps) {
         </Collapse>
         <WebInfo/>
         <NaviBar title={title} />
-        <Container>
+        <Container fixed>
           <Component {...pageProps} setPageLoading={setPageLoading} setError={alertError}/>
         </Container>
       </ThemeProvider>
