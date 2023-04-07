@@ -32,7 +32,8 @@ export default function NaviBar(porps: INaviBarProps) {
   }
 
   const handleClick = () => {
-    router.push('/', {
+    router.push({
+      pathname:"/",
       query: {
         filter: words,
       },
