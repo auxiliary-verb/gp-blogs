@@ -69,7 +69,7 @@ export default function NaviBar(porps: INaviBarProps) {
                   }
                 }}
                 endAdornment={
-                  <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={(e) => { }}>
+                  <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleClick}>
                     <SearchIcon style={{ color: 'white' }} />
                   </IconButton>
                 }

@@ -13,7 +13,16 @@ import { useWordFilter } from '@/src/controller/useArticleFileter';
 export default function Home(props: IPageProps) {
   const router = useRouter();
   const { filter } = router.query;
+  const [searchWords, setSearchWords] = React.useState(filter?.toString() || "");
+  React.useEffect(()=>{
+    if (router.isReady) {
+      setSearchWords(filter?.toString() || "")
+    }
+  })
+
+  console.log(router.isReady)
+  console.log(filter)
   return (
-    <ArticleList {...props} searchWords={filter?.toString() || ""} useFilter={useWordFilter}/>
+    <ArticleList {...props} searchWords={searchWords} useFilter={useWordFilter}/>
   );
 }
