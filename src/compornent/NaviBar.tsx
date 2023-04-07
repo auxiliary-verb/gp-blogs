@@ -9,6 +9,7 @@ import MuiLink from '@mui/material/Link';
 import Link from 'next/link';
 import Container from '@mui/material/Container';
 import InputBase from '@mui/material/InputBase';
+import FilledInput from '@mui/material/FilledInput';
 
 interface INaviBarProps {
   title: string;
@@ -26,14 +27,16 @@ export default function NaviBar(porps: INaviBarProps) {
             <MuiLink href="/" variant="h6" underline="none" color="inherit" component={Link}>
               {title}
             </MuiLink>
-            <InputBase
+            <FilledInput
               sx={{ ml: 1, flex: 1 }}
               placeholder="検索"
               inputProps={{ 'aria-label': 'search' }}
+              endAdornment={
+                <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                  <SearchIcon />
+                </IconButton>
+              }
             />
-            <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-              <SearchIcon />
-            </IconButton>
           </Container>
         </Toolbar>
       </AppBar>
