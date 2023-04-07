@@ -25,8 +25,9 @@ export default function ArticleList(props: IArticleListProps) {
   if (!isLoading && error) {
     setError(error.toString());
   }
+  // sort は作成日を降順
   const out = data ?
-    data.map((val, idx) => (
+    data.sort((a, b) => Date.parse(a.createdDate) > Date.parse(b.createdDate) ? -1 : 1).map((val, idx) => (
       <Grid item xs={12} sm={6} key={`art-${idx}`} >
         <ArticleCard {...val} />
       </Grid>
