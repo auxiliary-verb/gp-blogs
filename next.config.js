@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
-const repos = process.env.NEXT_PUBLIC_REPOSITORY_NAME || "";
+const repos = process.env.NEXT_PUBLIC_ROOT_URL || "";
 
 const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
-  basePath: `/${repos}`,
+  basePath: `${repos}`,
+  assetPrefix: `${repos}`,
 }
 
 module.exports = nextConfig
